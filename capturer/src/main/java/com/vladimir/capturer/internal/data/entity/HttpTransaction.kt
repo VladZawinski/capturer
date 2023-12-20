@@ -1,17 +1,27 @@
 package com.vladimir.capturer.internal.data.entity
 
 import android.content.Context
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.vladimir.capturer.internal.support.FormatUtils
 import com.vladimir.capturer.internal.support.FormattedUrl
 import com.vladimir.capturer.internal.support.SpanTextUtil
 import okhttp3.HttpUrl
 import java.util.Date
 
+@Entity(tableName = "transactions")
 internal class HttpTransaction(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long = 0,
     var method: String?,
     var host: String?,
     var path: String?,
+    var protocol: String?,
     var url: String?,
+    var tookMs: Long?,
     var requestDate: Long?,
     var responseDate: Long?,
     var requestPayloadSize: Long?,
@@ -24,6 +34,26 @@ internal class HttpTransaction(
     var responseBody: String?,
     var scheme: String?,
 ) {
+    @Ignore
+    constructor() : this(
+        method = null,
+        host = null,
+        path = null,
+        url = null,
+        tookMs = null,
+        protocol = null,
+        requestDate = null,
+        responseDate = null,
+        requestPayloadSize = null,
+        requestHeaders = null,
+        requestContentType = null,
+        requestBody = null,
+        responseCode = null,
+        responseMessage = null,
+        responseContentType = null,
+        responseBody = null,
+        scheme = null
+    )
     val requestDateString: String?
         get() = requestDate?.let { Date(it).toString() }
     val responseDateString: String?

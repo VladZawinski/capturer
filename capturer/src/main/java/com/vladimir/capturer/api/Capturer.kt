@@ -1,9 +1,16 @@
 package com.vladimir.capturer.api
 
+import android.content.Context
 import android.util.Log
+import com.vladimir.capturer.internal.data.repository.RepositoryProvider
 import com.vladimir.capturer.internal.support.Logger
 
 public object Capturer {
+    fun withContext(context: Context) {
+        RepositoryProvider.initialize(context)
+    }
+    fun getHistoryAsTxt() {}
+
     internal var logger: Logger =
         object : Logger {
             val TAG = "Capturer"
