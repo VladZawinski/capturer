@@ -33,6 +33,7 @@ internal class HttpTransaction(
     var responseContentType: String?,
     var responseBody: String?,
     var scheme: String?,
+    var error: String?,
 ) {
     @Ignore
     constructor() : this(
@@ -52,7 +53,8 @@ internal class HttpTransaction(
         responseMessage = null,
         responseContentType = null,
         responseBody = null,
-        scheme = null
+        scheme = null,
+        error = null
     )
     val requestDateString: String?
         get() = requestDate?.let { Date(it).toString() }
@@ -97,6 +99,9 @@ internal class HttpTransaction(
         path = formattedUrl.pathWithQuery
         scheme = formattedUrl.scheme
         return this
+    }
+    fun getFormattedResponseBody(): String {
+        return responseBody?.let { formatBody(it, responseContentType) } ?: ""
     }
 }
 

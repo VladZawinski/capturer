@@ -1,4 +1,4 @@
-package com.vladimir.capturer.sample
+package com.vladimir.capturer.sample.compose
 
 import androidx.compose.ui.graphics.Color
 

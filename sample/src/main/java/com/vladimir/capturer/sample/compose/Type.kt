@@ -1,4 +1,4 @@
-package com.vladimir.capturer.sample
+package com.vladimir.capturer.sample.compose
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

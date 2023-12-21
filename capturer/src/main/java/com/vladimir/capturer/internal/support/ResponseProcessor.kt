@@ -1,6 +1,7 @@
 package com.vladimir.capturer.internal.support
 
 import com.vladimir.capturer.api.BodyDecoder
+import com.vladimir.capturer.api.CapturerCollector
 import com.vladimir.capturer.internal.data.entity.HttpTransaction
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.asResponseBody
@@ -16,6 +17,7 @@ internal class ResponseProcessor(
     private val maxContentLength: Long,
     private val bodyDecoders: List<BodyDecoder>,
     private val cacheDirectoryProvider: CacheDirectoryProvider,
+    private val collector: CapturerCollector,
 ) {
     fun process(
         response: Response,
@@ -109,6 +111,7 @@ internal class ResponseProcessor(
             file?.readResponsePayload()?.let { payload ->
                 processPayload(response, payload, transaction)
             }
+            collector.onResponseReceived(transaction)
             file?.delete()
         }
 

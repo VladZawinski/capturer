@@ -1,6 +1,7 @@
 package com.vladimir.capturer.internal.support
 
 import com.vladimir.capturer.api.BodyDecoder
+import com.vladimir.capturer.api.CapturerCollector
 import com.vladimir.capturer.internal.data.entity.HttpTransaction
 import okhttp3.Request
 import okio.Buffer
@@ -10,6 +11,7 @@ import okio.IOException
 internal class RequestProcessor(
     private val maxContentLength: Long,
     private val bodyDecoders: List<BodyDecoder>,
+    private val collector: CapturerCollector,
 ) {
     fun process(
         request: Request,
@@ -17,7 +19,7 @@ internal class RequestProcessor(
     ) {
         processMetadata(request, transaction)
         processPayload(request, transaction)
-//        collector.onRequestSent(transaction)
+        collector.onRequestSent(transaction)
     }
     private fun processMetadata(
         request: Request,

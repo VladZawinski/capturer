@@ -6,16 +6,19 @@ import com.vladimir.capturer.internal.data.room.CapturerDatabase
 internal class HttpTransactionRepositoryImpl(
     private val database: CapturerDatabase,
 ): HttpTransactionRepository {
+    private val transactionDao get() = database.transactionDao()
     override suspend fun insertTransaction(transaction: HttpTransaction) {
-        TODO("Not yet implemented")
+        val id = transactionDao.insert(transaction)
+        transaction.id = id ?: 0
     }
 
     override suspend fun deleteAllTransactions() {
-        TODO("Not yet implemented")
+        transactionDao.deleteAll()
     }
 
-    override suspend fun getAllTransactions(): List<HttpTransaction> {
-        TODO("Not yet implemented")
+    override suspend fun updateTransaction(transaction: HttpTransaction): Int {
+        return transactionDao.update(transaction)
     }
 
+    override suspend fun getAllTransactions(): List<HttpTransaction> = transactionDao.getAll()
 }

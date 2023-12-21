@@ -1,4 +1,4 @@
-package com.vladimir.capturer.sample
+package com.vladimir.capturer.sample.compose
 
 import android.app.Activity
 import android.os.Build
